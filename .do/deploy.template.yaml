@@ -1,7 +1,50 @@
-spec:
-  name: sample-golang
-  services:
-  - name: web
-    git:
-      branch: main
-      repo_clone_url: https://github.com/digitalocean/sample-golang.git
+name: crusher
+services:
+  - http_port: 3000
+    image:
+      registry: "7296823551"
+      registry_type: DOCKER_HUB
+      repository: test
+      tag: latest
+    instance_count: 1
+    instance_size_slug: basic-s
+    name: crusher-app
+    routes:
+      - path: /
+    source_dir: /
+  - http_port: 8080
+    image:
+      registry: bitnami
+      registry_type: DOCKER_HUB
+      repository: mongodb
+      tag: latest
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: bitnami-mongodb
+    routes:
+      - path: /bitnami-mongodb
+    source_dir: /
+  - http_port: 8080
+    image:
+      registry: bitnami
+      registry_type: DOCKER_HUB
+      repository: redis
+      tag: latest
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: bitnami-redis
+    routes:
+      - path: /bitnami-redis
+    source_dir: /
+  - http_port: 8080
+    image:
+      registry: bitnami
+      registry_type: DOCKER_HUB
+      repository: mysql
+      tag: latest
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    name: bitnami-mysql
+    routes:
+      - path: /bitnami-mysql
+    source_dir: /
